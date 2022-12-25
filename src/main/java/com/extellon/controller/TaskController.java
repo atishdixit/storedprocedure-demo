@@ -1,5 +1,6 @@
 package com.extellon.controller;
 
+import com.extellon.domain.Name;
 import com.extellon.domain.Task;
 import com.extellon.domain.TaskDto;
 import com.extellon.repository.TaskRepository;
@@ -27,16 +28,22 @@ public class TaskController {
     @GetMapping("/getALlTask")
     @Transactional
     public List<TaskDto> getALlTask(){
-
-        List<Task> list = taskRepository.taskList();
-        List<Task> list2 = taskRepository.tasks();
-        List<Task> list3 = taskRepository.getTasks();
-        List<Task> list4 = taskRepository.getTaskList();
         return taskService.getTasks();
     }
 
     @GetMapping("/getTaskById/{id}")
     public TaskDto getTaskById(@PathVariable("id") int id){
         return taskService.getTask(id);
+    }
+
+    @GetMapping("/getTaskByName/{name}")
+    public String getTaskByName(@PathVariable("name") String name){
+        return taskRepository.getTaskByName(name).getName();
+    }
+
+    @Transactional
+    @GetMapping("/getTaskByInOutParam/{id}")
+    public String getTaskByName(@PathVariable("id") int id){
+        return taskRepository.getByTaskId(id);
     }
 }
